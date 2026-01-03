@@ -1,66 +1,85 @@
-// 1. 初始化一個假的起始數字 (讓它看起來已經運作很久了)
-// 這裡設定從 849萬 開始，每次重新整理都會隨機加一點
-let currentCount = 8492030 + Math.floor(Math.random() * 5000);
+// 1. 初始化：從瀏覽器 LocalStorage 讀取數字，如果沒有則為 0
+let myCount = localStorage.getItem('sheepCount') ? parseInt(localStorage.getItem('sheepCount')) : 0;
 
+// 綁定 DOM 元素
 const counterElement = document.getElementById('counter');
+const rankElement = document.getElementById('rank');
 const btn = document.getElementById('countBtn');
+const resetBtn = document.getElementById('resetBtn');
 const stage = document.getElementById('sheepStage');
-const pingElement = document.getElementById('ping');
 
-// 2. 更新畫面數字的函式 (加上千分位逗號)
+// 2. 定義稱號系統 (您可以自由修改文字)
+const titles = [
+    { count: 0, title: "路過的旅人" },
+    { count: 10, title: "失眠的新手" },
+    { count: 50, title: "數羊愛好者" },
+    { count: 100, title: "初級牧羊人" },
+    { count: 300, title: "很有耐心" },
+    { count: 500, title: "浪費時間的天才" },
+    { count: 1000, title: "手指健身教練" },
+    { count: 2000, title: "無聊也是一種才華" },
+    { count: 5000, title: "羊群之主" },
+    { count: 10000, title: "傳說中的牧神" },
+    { count: 99999, title: "你滑鼠還好嗎？" }
+];
+
+// 3. 更新畫面函式
 function updateDisplay() {
-    counterElement.innerText = currentCount.toLocaleString();
+    // 更新數字 (加上千分位逗號)
+    counterElement.innerText = myCount.toLocaleString();
+    
+    // 計算稱號
+    let currentTitle = titles[0].title;
+    for (let i = 0; i < titles.length; i++) {
+        if (myCount >= titles[i].count) {
+            currentTitle = titles[i].title;
+        } else {
+            break;
+        }
+    }
+    rankElement.innerText = currentTitle;
+    
+    // 儲存進瀏覽器 (關鍵步驟)
+    localStorage.setItem('sheepCount', myCount);
 }
 
-// 3. 模擬「全球流量」自動增加
-// 每 0.5 到 2 秒之間，自動增加 1~5 隻羊 (假裝別人在點)
-function fakeGlobalTraffic() {
-    const randomTime = Math.random() * 1500 + 500; 
-    const randomIncrement = Math.floor(Math.random() * 5) + 1;
-    
-    setTimeout(() => {
-        currentCount += randomIncrement;
-        updateDisplay();
-        
-        // 隨機跳動 Ping 值，增加駭客感
-        pingElement.innerText = Math.floor(Math.random() * 30) + 10;
-        
-        fakeGlobalTraffic(); // 遞迴呼叫，讓它永遠跑下去
-    }, randomTime);
-}
-
-// 4. 使用者點擊按鈕的行為
-btn.addEventListener('click', () => {
-    // 數字 +1
-    currentCount++;
-    updateDisplay();
-    
-    // 產生一隻羊的動畫 DOM
-    createSheep();
-    
-    // 如果你有聲音檔，可以在這裡播放
-    // let audio = new Audio('baa.mp3');
-    // audio.play();
-});
-
-// 產生羊動畫的函式
+// 4. 產生羊動畫
 function createSheep() {
     const sheep = document.createElement('div');
-    sheep.innerText = '🐑';
+    sheep.innerText = '🐑'; // 這裡是 emoji，也可以換成圖片
     sheep.classList.add('floating-sheep');
     
-    // 讓羊隨機稍微往左或往右偏一點，比較自然
-    const randomOffset = Math.floor(Math.random() * 100) - 50; 
+    // 讓羊出現的位置稍微左右隨機偏移，比較自然
+    const randomOffset = Math.floor(Math.random() * 80) - 40; 
     sheep.style.marginLeft = randomOffset + 'px';
 
     stage.appendChild(sheep);
 
-    // 動畫結束後 (1秒) 把 DOM 刪除，避免記憶體爆炸
+    // 動畫結束後從 DOM 移除，避免佔用記憶體
     setTimeout(() => {
         sheep.remove();
-    }, 1000);
+    }, 600);
 }
 
-// 啟動！
+// 5. 監聽點擊事件
+btn.addEventListener('click', (e) => {
+    myCount++;
+    updateDisplay();
+    createSheep();
+    
+    // 點擊特效：按鈕輕微震動 (可選)
+    if (window.navigator && window.navigator.vibrate) {
+        window.navigator.vibrate(5);
+    }
+});
+
+// 6. 監聽重置事件
+resetBtn.addEventListener('click', () => {
+    if (confirm('確定要殺光所有的羊，重新開始你的人生嗎？(紀錄將無法復原)')) {
+        myCount = 0;
+        updateDisplay();
+    }
+});
+
+// 程式啟動時先執行一次
 updateDisplay();
-fakeGlobalTraffic();

@@ -3,35 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>羊.tw - 全球失眠雲端運算中心</title>
+    <title>羊.tw - 數位牧場</title>
+    <meta name="description" content="睡不著？覺得人生無聊？來這裡點擊你的電子羊。">
     
-    <meta property="og:title" content="羊.tw">
-    <meta property="og:description" content="全台最大線上數羊中心，目前有 8,000,000+ 隻羊正在被計算中。">
+    <meta property="og:title" content="羊.tw - 數位牧場">
+    <meta property="og:description" content="累積你的功德值，目前我已經數了好多隻羊...">
     <meta property="og:image" content="https://emojigraph.org/media/apple/ewe_1f411.png">
-    
+    <meta property="og:url" content="https://xn--6o0a.tw">
+    <meta property="og:type" content="website">
+
     <link rel="stylesheet" href="style.css">
 
-    <script data-goatcounter="https://你的帳號.goatcounter.com/count"
+    <script data-goatcounter="https://goatandsheep.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 
     <div class="container">
-        <h1>Global Sheep Counter</h1>
-        <p class="subtitle">目前全球已數出：</p>
+        <h1>SHEEP.TW</h1>
+        <p class="subtitle">數位牧羊修行場</p>
         
-        <div id="counter">8,492,000</div>
+        <div id="counter">0</div>
         
-        <div class="sheep-stage" id="sheepStage">
-            </div>
+        <div id="rank-container">
+            <span id="rank">路過的旅人</span>
+        </div>
+        
+        <div class="sheep-stage" id="sheepStage"></div>
 
-        <button id="countBtn">🐑 再加一隻</button>
+        <button id="countBtn">🐑 數一隻羊</button>
         
-        <p class="footer">
-            Server Status: <span style="color:#00ff00">Online</span> | 
-            Ping: <span id="ping">12</span>ms | 
-            Domain: 羊.tw
-        </p>
+        <button id="resetBtn" class="secondary-btn" title="清除紀錄">歸零重來</button>
+        
+        <footer class="footer">
+            <p>累積次數已儲存於您的瀏覽器中。</p>
+            <p>Domain: <a href="http://xn--6o0a.tw">羊.tw</a></p>
+        </footer>
     </div>
 
     <script src="script.js"></script>
