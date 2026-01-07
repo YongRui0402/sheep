@@ -3,43 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>羊.tw - 數位牧場</title>
-    <meta name="description" content="睡不著？覺得人生無聊？來這裡點擊你的電子羊。">
+    <title>www.羊.tw</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐑</text></svg>">
     
-    <meta property="og:title" content="羊.tw - 數位牧場">
-    <meta property="og:description" content="累積你的功德值，目前我已經數了好多隻羊...">
-    <meta property="og:image" content="https://emojigraph.org/media/apple/ewe_1f411.png">
-    <meta property="og:url" content="https://xn--6o0a.tw">
-    <meta property="og:type" content="website">
-
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
     <link rel="stylesheet" href="style.css">
-
-    <script data-goatcounter="https://goatandsheep.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
 </head>
 <body>
 
-    <div class="container">
-        <h1>SHEEP.TW</h1>
-        <p class="subtitle">數位牧羊修行場</p>
-        
-        <div id="counter">0</div>
-        
-        <div id="rank-container">
-            <span id="rank">路過的旅人</span>
-        </div>
-        
-        <div class="sheep-stage" id="sheepStage"></div>
+    <div class="bg-blob b1"></div>
+    <div class="bg-blob b2"></div>
+    <div class="bg-blob b3"></div>
 
-        <button id="countBtn">🐑 數一隻羊</button>
+    <div class="app-container">
         
-        <button id="resetBtn" class="secondary-btn" title="清除紀錄">歸零重來</button>
-        
+        <header class="main-header">
+            <h1>www.羊.tw</h1>
+        </header>
+
+        <div class="glass-card main-card">
+            <div class="score-board">
+                <span id="score">0</span>
+                <span class="unit">隻</span>
+            </div>
+            
+            <div class="click-zone">
+                <button id="click-btn" class="sheep-btn">🐑</button>
+            </div>
+            <p class="hint">點擊畫面中央的羊</p>
+        </div>
+
+        <div class="glass-card leaderboard-card">
+            <div class="card-title">
+                <i class="fas fa-crown"></i> 榮譽榜
+            </div>
+            
+            <div class="input-area">
+                <input type="text" id="nickname" placeholder="輸入暱稱..." maxlength="10">
+                <button id="upload-btn">上傳</button>
+            </div>
+            <div id="status-msg" class="status-msg"></div>
+
+            <div class="list-wrapper">
+                <table id="leaderboard-table">
+                    <thead>
+                        <tr>
+                            <th width="15%">#</th>
+                            <th>ID</th>
+                            <th width="30%">數量</th>
+                        </tr>
+                    </thead>
+                    <tbody id="leaderboard-body">
+                        </tbody>
+                </table>
+            </div>
+            
+            <button id="refresh-btn" class="refresh-btn">
+                <i class="fas fa-sync-alt"></i> 更新
+            </button>
+        </div>
+
         <footer class="footer">
-            <p>累積次數已儲存於您的瀏覽器中。</p>
-            <p>Domain: <a href="http://xn--6o0a.tw">羊.tw</a></p>
+            www.羊.tw © 2026
         </footer>
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
 
     <script src="script.js"></script>
 </body>
