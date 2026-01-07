@@ -16,12 +16,25 @@
     <div class="bg-blob b1"></div>
     <div class="bg-blob b2"></div>
     <div class="bg-blob b3"></div>
+    <div style="position:fixed;inset:0;pointer-events:none;background:radial-gradient(800px 400px at 50% 0%, rgba(255,255,255,.06), transparent 60%);"></div>
 
     <div class="app-container">
         
         <header class="main-header">
             <h1>www.羊.tw</h1>
         </header>
+
+        <div class="glass-card stats-bar">
+            <div class="stat-item">
+                <span class="stat-label"><i class="fas fa-globe-asia"></i> 全球總產量</span>
+                <span class="stat-value" id="global-sheep">載入中...</span>
+            </div>
+            <div class="divider"></div>
+            <div class="stat-item">
+                <span class="stat-label"><i class="fas fa-users"></i> 訪客人數</span>
+                <span class="stat-value" id="global-visitors">...</span>
+            </div>
+        </div>
 
         <div class="glass-card main-card">
             <div class="score-board">
@@ -32,7 +45,7 @@
             <div class="click-zone">
                 <button id="click-btn" class="sheep-btn">🐑</button>
             </div>
-            <p class="hint">點擊畫面中央的羊</p>
+            <p id="hint-text" class="hint">點擊畫面中央的羊</p>
         </div>
 
         <div class="glass-card leaderboard-card">
@@ -56,7 +69,7 @@
                         </tr>
                     </thead>
                     <tbody id="leaderboard-body">
-                        </tbody>
+                    </tbody>
                 </table>
             </div>
             
@@ -68,6 +81,10 @@
         <footer class="footer">
             www.羊.tw © 2026
         </footer>
+    </div>
+
+    <div id="message-toast" class="message-toast hidden">
+        <span id="toast-text">訊息內容</span>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
