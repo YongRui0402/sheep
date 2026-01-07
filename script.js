@@ -65,11 +65,14 @@ function checkMessages(currentScore) {
 
 // 點擊事件
 if (clickBtn) {
-    clickBtn.addEventListener('click', () => {
+    clickBtn.addEventListener('click', (e) => { // 注意這裡多了 (e) 參數
         score++;
         updateView();
         checkMessages(score);
         localStorage.setItem('sheep_score', score);
+        
+        // ★★★ 新增：觸發點擊動畫特效 ★★★
+        spawnPlusOne(e);
     });
 }
 
@@ -86,6 +89,39 @@ function resetGame() {
     localStorage.setItem('sheep_score', 0);
     // 也可以顯示一個提示告訴玩家羊已經送出了
     showToast("羊群已送達牧場，計數歸零！");
+}
+
+// ★★★ 新增：產生 +1 動畫粒子的函式 ★★★
+function spawnPlusOne(event) {
+    // 建立一個新的 span 元素
+    const particle = document.createElement('span');
+    particle.classList.add('plus-one-particle');
+    particle.innerText = '+1';
+    
+    // 計算點擊位置相對於按鈕左上角的座標
+    // 這樣 +1 就會從你滑鼠點擊的那個點冒出來
+    const rect = clickBtn.getBoundingClientRect();
+    
+    // 如果是滑鼠點擊，使用滑鼠座標；如果是鍵盤觸發，則使用按鈕中心點
+    let x, y;
+    if (event.clientX && event.clientY) {
+         x = event.clientX - rect.left;
+         y = event.clientY - rect.top;
+    } else {
+         x = rect.width / 2;
+         y = rect.height / 2;
+    }
+
+    particle.style.left = `${x}px`;
+    particle.style.top = `${y}px`;
+    
+    // 將粒子加到按鈕裡面
+    clickBtn.appendChild(particle);
+    
+    // 監聽動畫結束事件，動畫一結束就移除這個元素，保持 DOM 整潔
+    particle.addEventListener('animationend', () => {
+        particle.remove();
+    });
 }
 
 // ==========================================

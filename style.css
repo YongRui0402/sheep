@@ -410,3 +410,70 @@ tbody tr:last-child td{ border-bottom:none; }
   .input-area{ flex-direction: column; }
   #upload-btn{ width:100%; }
 }
+
+/* =========================================
+   新功能：點擊動畫與圖片樣式
+   ========================================= */
+
+/* --- 1. 圖片模式按鈕樣式優化 --- */
+.sheep-btn.image-mode {
+  /* 調整內距，讓圖片在圓圈中更好看 */
+  padding: 15px;
+  /* 確保圖片超出圓角時被切裁 */
+  overflow: hidden; 
+  /* 讓按鈕本身成為定位基準點，給 +1 動畫使用 */
+  position: relative; 
+}
+
+/* 確保這一段存在於你的 style.css 中 */
+.sheep-btn.image-mode img {
+  width: 100%;
+  height: auto;
+  display: block;
+  pointer-events: none; /* <--- 這一行絕對不能少 */
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.2s ease;
+}
+
+/* 滑鼠懸停時，圖片稍微放大並旋轉一點點，增加動態感 */
+.sheep-btn.image-mode:hover img {
+  transform: scale(1.08) rotate(3deg);
+}
+
+/* 點擊按下時，圖片被壓扁並下沉，模擬Ｑ彈感 */
+.sheep-btn.image-mode:active img {
+  transform: scale(0.9) translateY(10px) rotate(-3deg);
+  filter: brightness(0.9);
+}
+
+/* --- 2. "+1" 浮動粒子動畫 --- */
+.plus-one-particle {
+    position: absolute;
+    font-weight: 900;
+    font-size: 2rem;
+    color: var(--primary2); /* 使用你原本定義的青色 */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    pointer-events: none; /* 確保不擋住滑鼠 */
+    user-select: none;
+    z-index: 10;
+    /* 初始位置在中心，並縮小 */
+    transform: translate(-50%, -50%) scale(0.5);
+    opacity: 0;
+    /* 執行浮動動畫 */
+    animation: floatUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* 定義浮動動畫的關鍵影格 */
+@keyframes floatUp {
+    0% {
+        opacity: 0;
+        transform: translate(-50%, -20%) scale(0.5);
+    }
+    20% {
+        opacity: 1;
+        transform: translate(-50%, -100%) scale(1.2); /* 變大並往上衝 */
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -250%) scale(1); /* 繼續往上並消失 */
+    }
+}
