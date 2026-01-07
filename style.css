@@ -21,22 +21,41 @@
 *{ box-sizing:border-box; }
 
 html, body{
-  height:100%;
+  /* 修改點：從 height 改為 min-height，並使用 100vh 確保至少填滿視窗 */
+  min-height: 100vh;
+  /* 確保沒有多餘的捲軸 */
+  width: 100%; 
 }
 
-body{
-  margin:0;
+body {
+  margin: 0;
   font-family: 'Varela Round', system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", Arial, sans-serif;
   color: var(--text);
+  
+  /* 背景設定維持不變 */
   background:
     radial-gradient(1200px 700px at 10% 10%, rgba(124,92,255,.35), transparent 55%),
     radial-gradient(1000px 600px at 85% 20%, rgba(48,213,200,.25), transparent 55%),
     radial-gradient(900px 700px at 50% 100%, rgba(255,77,109,.14), transparent 55%),
     linear-gradient(180deg, var(--bg1), var(--bg2));
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  overflow-x:hidden;
+    
+  /* ★★★ 關鍵修改：加上這行，讓背景固定不動，像窗外的風景一樣 ★★★ */
+  background-attachment: fixed;
+  
+  /* 確保背景覆蓋整個區域 */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Flex 設定微調：確保內容多時也能正常捲動 */
+  display: flex;
+  justify-content: center;
+  /* 如果內容太長，align-items: center 會導致頂部被切掉，建議改用 padding 控制垂直空間 */
+  align-items: center; 
+  /* 為了保險起見，可以針對手機版面增加一點 padding-bottom */
+  padding-bottom: 20px;
+  
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
